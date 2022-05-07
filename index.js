@@ -38,7 +38,23 @@ async function run() {
             const newItem = req.body;
             const result = await productsCollection.insertOne(newItem);
             res.send(result);
-        })
+        });
+
+        // update count 
+        app.put('/products/:id', async(req, res) => {
+            const id = req.params;
+            const body = req.body;
+            // console.log(body);
+            const filter = {_id: ObjectId(id)};
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    quantity: body.newQuantity
+                }
+            }
+            const result = await productsCollection.updateOne(filter, updateDoc, options);
+            res.send('result');
+        }) 
 
         //delete operation 
         app.delete('/products/:id', async(req, res) => {
