@@ -42,7 +42,7 @@ async function run() {
     });
 
     //users item collection
-    app.get("/products", async (req, res) => {
+    app.get("/items", async (req, res) => {
       const email = req.query.email;
       console.log(email);
       const query = {email: email};
